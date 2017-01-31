@@ -5,8 +5,8 @@ module Eightbitpalu(
 		output [7:0]f,
 		output ovf);
 
-reg [7:0]f;
-reg ovf;
+	reg [7:0]f;
+	reg ovf;
 
 	always @(sel or b or a) begin
 		if (sel == 2'b00)begin

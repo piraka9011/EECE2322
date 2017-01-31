@@ -27,6 +27,7 @@ module EightBitComparator(input [7:0]a,
     wire eq_1, eq_2;
     FourBitComparator BC_2( a2, b2, eq_1, gt_1, lt_1);
     FourBitComparator BC_1( a1, b1, eq_2, gt_2, lt_2);
+    and and1()
     or or1(lt, lt_1, lt_2);
     or or2(gt, gt_1, gt_2);
     or or3(eq, eq_1, eq_2);
