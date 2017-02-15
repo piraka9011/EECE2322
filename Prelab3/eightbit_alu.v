@@ -1,8 +1,8 @@
 module EightbitALU(
-		input [7:0]a,
-		input [7:0]b,
+		input signed [7:0]a,
+		input signed [7:0]b,
 		input [2:0]s,
-		output [7:0]f,
+		output signed [7:0]f,
 		output ovf,
 		output take_branch);
 reg [7:0]f;

@@ -1,40 +1,42 @@
-module RegFile32x32(input write1,
-										input [31:0] write_data1,
-										input [4:0] write_index1,
-										input write2,
-										input [31:0] write_data2,
-										input [4:0] write_index2,
-										input [4:0] read_index,
-										input clear,
-										input clock,
-										output [31:0] read_value
-										);
-										// 32x32 reg file
+module RegFile32x32(
+		input write1,
+		input [31:0] write_data1,
+		input [4:0] write_index1,
+		input write2,
+		input [31:0] write_data2,
+		input [4:0] write_index2,
+		input [4:0] read_index,
+		input clear,
+		input clock,
+		output [31:0] read_value
+					);
 
-		reg [31:0] blocks [31:0];
-		integer i;
+reg [31:0] blocks [31:0];
+integer i;
 
-		always @(negedge clock, posedge clear) begin
-			if (clear) begin
-				for(i = 0; i < 32; i = i+1)
-					blocks[i] = 0;
-			end
-			else if (write1) begin
-				blocks[write_index1] = write_data1;
-			end
-			else if(write2) begin
-				blocks[write_index2] = write_data2;
-			end
-			// Case for both write_en signals set
-			else if(write1 & write2)begin
-				blocks[write_index1] = write_data1;
-			end
-		end
+always @(negedge clock, posedge clear) begin
+	if (clear) begin
+		for(i=0; i<32;i++)
+			blocks[i] = 0;		
+	end
+	else if (write1) begin
+		blocks[write_index1] = write_data1;
+	end
+	else if(write2) begin
+		blocks[write_index2] = write_data2;
+	end
+	else if(write_index1==write_index2)begin
+		blocks[write_index1] = write_data1;
+	end
+	else begin
+		blocks[write_index1] = write_data1;
+		blocks[write_index2] = write_data2;
+	end
+end
 
-		assign read_value = blocks [read_index];
+assign read_value = blocks [read_index];
 
 endmodule
-
 // Testbench
 module RegFileTB;
 	reg wr1,wr2;
