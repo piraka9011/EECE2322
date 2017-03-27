@@ -1,7 +1,7 @@
-module ZeroExtend(input [15:0] in,
-									output [31:0] out);
+module ZeroExtend(input[15:0] in,
+									output[31:0] out);
 
-  assign out = {16'h0000, in};
+  assign out = {{16'h0000}, in};
 
 endmodule
 
@@ -173,10 +173,6 @@ module Datapath(input clock,
 			sign_extend_in,
 			sign_extend_out);
 
-	// Connections for SignExtend
-	assign sign_extend_in = instruction_memory_instr[15:0];
-	assign sign_extend_out = extension_mux_in0;
-
 	// ZeroExtend
 	wire[15:0] zero_extend_in;
 	wire[31:0] zero_extend_out;
@@ -184,9 +180,13 @@ module Datapath(input clock,
 		zero_extend_in,
 		zero_extend_out);
 
+	// Connections for SignExtend
+	assign sign_extend_in = instruction_memory_instr[15:0];
+	assign extension_mux_in0 = sign_extend_out;
+
 	// Connections for ZeroExtend
 	assign zero_extend_in = instruction_memory_instr[15:0];
-	assign zero_extend_out = extension_mux_in1;
+	assign extension_mux_in1 = zero_extend_out;
 
 	// Connection for Extension MUX
 	assign alu_mux_in1 = extension_mux_out;
@@ -198,9 +198,6 @@ module Datapath(input clock,
 	ShiftLeft shift_left(
 			shift_left_in,
 			shift_left_out);
-
-	// Connections for ShiftLeft
-	assign shift_left_in = sign_extend_out;
 
 	// Adder
 	wire[31:0] adder_op1;

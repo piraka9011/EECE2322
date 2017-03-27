@@ -32,4 +32,3 @@ module RegisterFile(input clock,
 	assign read_data2 = read_index2 == 0 ? 0 : content[read_index2];
 
 endmodule
-
