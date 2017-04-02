@@ -26,9 +26,9 @@ module InstructionMemory(input clock,
 			// content[9] = 32'had430008;	// sw $3, 8($10)
 			// content[10] = 32'h1000fff5;	// beq $0, $0, main
 			// HOMEWORK 8
-			content[11] = 32'h22000001;	// addi $s0, $zero, 0x1
-			content[12] = 32'h36108000;	// ori $s0, #s0, 0x8000
-			content[13] = 32'h2210ffff;	// addi $s0, $s0, -1
+			content[0] = 32'h20100001;	// addi $s0, $zero, 0x1
+			content[1] = 32'h36108000;	// ori $s0, #s0, 0x8000
+			content[2] = 32'h2210ffff;	// addi $s0, $s0, -1
 		end
 
 	// Read instruction
